@@ -12,13 +12,16 @@ import type { Order, OrderStatus } from "./types";
 type G = { __scMem?: Order[]; __scSb?: SupabaseClient; __scLock?: Promise<unknown> };
 const g = globalThis as unknown as G;
 const mem = () => (g.__scMem ??= []);
-export const hasSupabase = () => Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+// Vercel Supabase 연동은 프로젝트에 따라 SUPABASE_URL 또는 NEXT_PUBLIC_SUPABASE_URL 로 들어옴
+const sbUrl = () => process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const sbKey = () => process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+export const hasSupabase = () => Boolean(sbUrl() && sbKey());
 
 async function sb(): Promise<SupabaseClient | null> {
   if (!hasSupabase()) return null;
   if (!g.__scSb) {
     const { createClient } = await import("@supabase/supabase-js");
-    g.__scSb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
+    g.__scSb = createClient(sbUrl(), sbKey(), { auth: { persistSession: false } });
   }
   return g.__scSb;
 }
