@@ -1,0 +1,19 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-clay-50 text-clay-900 antialiased; word-break: keep-all; }
+}
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-content px-5 md:px-8; }
+  .btn { @apply inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-40; }
+  .btn-primary { @apply btn bg-clay-800 text-white hover:bg-clay-900; }
+  .btn-accent { @apply btn bg-clay-500 text-white hover:bg-clay-600; }
+  .btn-ghost { @apply btn border border-clay-200 bg-white text-clay-800 hover:bg-clay-100; }
+  .input { @apply w-full rounded-xl border border-clay-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-clay-500 focus:ring-2 focus:ring-clay-100; }
+  .label { @apply mb-1.5 block text-sm font-semibold text-clay-800; }
+  .card { @apply rounded-2xl border border-clay-100 bg-white; }
+}
