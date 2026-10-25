@@ -2,7 +2,7 @@ import Link from "next/link";
 import { logoutAction } from "@/app/admin/actions";
 import { requireAdmin } from "@/lib/auth";
 import { hasSupabase } from "@/lib/repo";
-import { tossReady } from "@/lib/toss";
+import { tossKeyProblem, tossReady } from "@/lib/toss";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +26,7 @@ export default async function Panel({ children }: { children: React.ReactNode })
           <form action={logoutAction}><button className="rounded-lg px-3 py-1.5 font-semibold text-clay-500 hover:text-clay-900">로그아웃</button></form>
         </div>
       </div>
+      {tossKeyProblem() && <p className="mb-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">결제 키 설정 오류: {tossKeyProblem()}</p>}
       {children}
     </div>
   );
